@@ -1,0 +1,67 @@
+#:kivy 1.1.0
+
+Root:
+    id: root_layout
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: .2
+            padding: 30
+            spacing: 10
+            Button:
+                text: 'Load GPX file'
+                on_release: root.show_load()
+            Button:
+                text: 'Convert'
+                on_press: message1.text = 'Converting...'
+                on_release: root_layout.convert()
+            Button:
+                text: 'Reset'
+                on_press: message1.text = 'Choose a GPX file then convert it.'
+                on_press: message2.text = 'Output will be in the same directory as input file.\nFolder needs to be writeable.\nOn Android try: /storage/emulated/0/Download'
+                on_press: message3.text = ''
+                on_release: root.filename = ''
+        Label:
+            id: message1
+            size_hint_y: .25
+            text: 'Choose a GPX file then convert it.'
+            text_size: root.width, None
+            size: self.texture_size
+            halign: 'center'
+        Label:
+            id: message2
+            size_hint_y: .25
+            text: 'Output will be in the same directory as input file.\nFolder needs to be writeable.\nOn Android try: /storage/emulated/0/Download'
+            text_size: root.width, None
+            size: self.texture_size
+            halign: 'center'
+        Label:
+            id: message3
+            size_hint_y: .25
+            text: ''
+            text_size: root.width, None
+            size: self.texture_size
+            halign: 'center'
+        Label:
+            size_hint_y: .3
+        
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            path: root.default_path
+        BoxLayout:
+            size_hint_y: .05
+            size_hint_x: 1
+            Button:
+                text: "Cancel"
+                size_hint_x: .5
+                on_release: root.cancel()
+            Button:
+                text: "Load"
+                size_hint_x: .5
+                on_release: root.load(filechooser.path, filechooser.selection)

@@ -13,13 +13,6 @@ import gpxpy
 #Hard coded output filename.  Path will be the same as input file.
 outputfilename = 'ozi.wpt'
 
-"""
-try:
-except Exception as e:
-# Catch any error, e.g. non-writable directory, etc.
-Logger.error("Failed installing extension " + "'%s' %s." % (extname, e))
-"""
-
 class LoadDialog(FloatLayout):
     #Default path based on OS
     if platform.uname()[0] == 'Linux':
